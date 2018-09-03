@@ -1,12 +1,27 @@
-const hapi   = require('hapi');
+const express        = require('express');
+const express_graphql = require('express-graphql');
+const { buildSchema } = require('graphql');
+const bodyParser     = require('body-parser');
+const mongoose       = require('mongoose');
 
-const server = hapi.server({
-  port: 8080,
-  host: 'localhost'
-});
+const PORT = 8080;
 
-const init = async () => {
-  await server.start();
-  console.log(`Server run at: ${server.info.uri}`);
+const schema = buildSchema(`
+  type Query {
+      message: String
+  }
+`);
+
+const root = {
+  message: () => 'Hello World!'
 };
-init();
+
+const app = express();
+
+app.use('/graphql', express_graphql({
+  schema: schema,
+  rootValue: root,
+  graphiql: true
+}));
+
+app.listen(PORT, () => console.log(`Express GraphQL Server Now Running On localhost:${PORT}/graphql`));
