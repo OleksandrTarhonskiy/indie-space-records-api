@@ -1,26 +1,24 @@
-const express        = require('express');
-const express_graphql = require('express-graphql');
-const { buildSchema } = require('graphql');
-const bodyParser     = require('body-parser');
+import express                             from 'express';
+import bodyParser                          from 'body-parser';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import { makeExecutableSchema }            from 'graphql-tools';
+
+import typeDefs  from './schema';
+import resolvers from './resolvers';
+
+export const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
 
 const PORT = 8080;
 
-const schema = buildSchema(`
-  type Query {
-      message: String
-  }
-`);
-
-const root = {
-  message: () => 'Hello World!'
-};
-
 const app = express();
 
-app.use('/graphql', express_graphql({
-  schema: schema,
-  rootValue: root,
-  graphiql: true
-}));
+const graphqlEndpoint = '/graphql';
 
-app.listen(PORT, () => console.log(`Express GraphQL Server Now Running On localhost:${PORT}/graphql`));
+app.use(graphqlEndpoint, bodyParser.json(), graphqlExpress({ schema }));
+
+app.use('/graphiql', graphiqlExpress({ endpointURL: graphqlEndpoint }));
+
+app.listen(PORT, () => console.log(`Express GraphQL Server Now Running On localhost:${PORT}/graphiql`));
