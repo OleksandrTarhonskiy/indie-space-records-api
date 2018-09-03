@@ -2,7 +2,6 @@ const express        = require('express');
 const express_graphql = require('express-graphql');
 const { buildSchema } = require('graphql');
 const bodyParser     = require('body-parser');
-const mongoose       = require('mongoose');
 
 const PORT = 8080;
 
