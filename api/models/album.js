@@ -10,10 +10,7 @@ export default (sequelize, DataTypes) => {
 
   Album.associate = (models) => {
     Album.belongsTo(models.Musician, {
-      foreignKey: {
-        name: 'musicianId',
-        field: 'musician_id'
-      },
+      foreignKey: 'author'
     });
   };
 

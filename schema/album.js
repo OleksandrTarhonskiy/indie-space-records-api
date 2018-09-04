@@ -1,6 +1,11 @@
 export default `
   type Album {
-    id: Int!
+    author: Musician!
+    name: String!
     year: String!
+  }
+
+  type Mutation {
+    createAlbum(name: String!, year: String!): Boolean!
   }
 `;
