@@ -6,13 +6,4 @@ export default `
     email: String!
     albums: [Album!]!
   }
-
-  type Album {
-    id: Int!
-    year: String!
-  }
-
-  type Query {
-    hi: String
-  }
 `;
