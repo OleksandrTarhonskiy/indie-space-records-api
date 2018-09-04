@@ -8,6 +8,7 @@ import {
   mergeTypes,
   mergeResolvers
 }                                          from 'merge-graphql-schemas';
+import cors                                from 'cors';
 
 import models from './api/models';
 
@@ -20,9 +21,11 @@ const schema = makeExecutableSchema({
   resolvers,
 });
 
-const PORT = 8080;
+const PORT = 8088;
 
 const app = express();
+
+app.use(cors('*'));
 
 const graphqlEndpoint = '/graphql';
 
