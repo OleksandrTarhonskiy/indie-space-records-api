@@ -8,8 +8,14 @@ export default (sequelize, DataTypes) => {
       },
       name     : DataTypes.STRING,
       email    : {
-        type   : DataTypes.STRING,
-        unique : true,
+        type     : DataTypes.STRING,
+        unique   : true,
+        validate : {
+          isEmail : {
+            args  : true,
+            msg   : 'Invalid email',
+          },
+        },
       },
       password : DataTypes.STRING,
     },

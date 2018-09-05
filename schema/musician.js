@@ -12,7 +12,13 @@ export default `
     allMusicians: [Musician!]!
   }
 
+  type RegisterResponse {
+    ok: Boolean!
+    musician: Musician
+    errors: [Error!]
+  }
+
   type Mutation {
-    createMusician(bandName: String!, name: String!, email: String!, password: String!): Musician!
+    signUp(bandName: String!, name: String!, email: String!, password: String!): RegisterResponse!
   }
 `;
