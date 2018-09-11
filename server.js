@@ -12,17 +12,18 @@ import cors                                from 'cors';
 
 import models from './api/models';
 
+
+const SECRET = 'draste';
+const SECRET2 = 'drastepidkraste';
+
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
-
 const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')));
-
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });
 
 const PORT = 8080;
-
 const app = express();
 
 app.use(cors('*'));
@@ -39,6 +40,8 @@ app.use(
       musician: {
         id: 1,
       },
+      SECRET,
+      SECRET2,
     },
   }),
 );
