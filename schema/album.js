@@ -1,6 +1,6 @@
 export default `
   type Album {
-    author: Musician!
+    author: User!
     name: String!
     year: String!
   }

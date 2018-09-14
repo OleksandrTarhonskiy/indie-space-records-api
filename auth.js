@@ -2,10 +2,10 @@ import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import bcrypt from 'bcrypt';
 
-export const createTokens = async (musician, secret, secret2) => {
+export const createTokens = async (user, secret, secret2) => {
   const createToken = jwt.sign(
     {
-      musician: _.pick(musician, ['id']),
+      user: _.pick(user, ['id']),
     },
     secret,
     {
@@ -15,7 +15,7 @@ export const createTokens = async (musician, secret, secret2) => {
 
   const createRefreshToken = jwt.sign(
     {
-      musician: _.pick(musician, 'id'),
+      user: _.pick(user, 'id'),
     },
     secret2,
     {
@@ -27,25 +27,25 @@ export const createTokens = async (musician, secret, secret2) => {
 };
 
 export const refreshTokens = async (token, refreshToken, models, SECRET, SECRET2) => {
-  let musicianId = 0;
+  let userId = 0;
   try {
-    const { musician: { id } } = jwt.decode(refreshToken);
-    musicianId = id;
+    const { user: { id } } = jwt.decode(refreshToken);
+    userId = id;
   } catch (err) {
     return {};
   }
 
-  if (!musicianId) {
+  if (!userId) {
     return {};
   }
 
-  const musician = await models.Musician.findOne({ where: { id: musicianId }, raw: true });
+  const user = await models.User.findOne({ where: { id: userId }, raw: true });
 
-  if (!musician) {
+  if (!user) {
     return {};
   }
 
-  const refreshSecret = musician.password + SECRET2;
+  const refreshSecret = user.password + SECRET2;
 
   try {
     jwt.verify(refreshToken, refreshSecret);
@@ -53,24 +53,24 @@ export const refreshTokens = async (token, refreshToken, models, SECRET, SECRET2
     return {};
   }
 
-  const [newToken, newRefreshToken] = await createTokens(musician, SECRET, refreshSecret);
+  const [newToken, newRefreshToken] = await createTokens(user, SECRET, refreshSecret);
   return {
     token: newToken,
     refreshToken: newRefreshToken,
-    musician,
+    user,
   };
 };
 
 export const tryLogin = async (email, password, models, SECRET, SECRET2) => {
-  const musician = await models.Musician.findOne({ where: { email }, raw: true });
-  if (!musician) {
+  const user = await models.User.findOne({ where: { email }, raw: true });
+  if (!user) {
     return {
       ok: false,
       errors: [{ path: 'email', message: 'Wrong email' }],
     };
   }
 
-  const valid = await bcrypt.compare(password, musician.password);
+  const valid = await bcrypt.compare(password, user.password);
   if (!valid) {
     return {
       ok: false,
@@ -78,9 +78,9 @@ export const tryLogin = async (email, password, models, SECRET, SECRET2) => {
     };
   }
 
-  const refreshTokenSecret = musician.password + SECRET2;
+  const refreshTokenSecret = user.password + SECRET2;
 
-  const [token, refreshToken] = await createTokens(musician, SECRET, refreshTokenSecret);
+  const [token, refreshToken] = await createTokens(user, SECRET, refreshTokenSecret);
 
   return {
     ok: true,

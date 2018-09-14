@@ -1,20 +1,21 @@
 export default `
-  type Musician {
+  type User {
     id: Int!
     bandName: String!
     name: String!
     email: String!
-    albums: [Album!]!
+    albums: [Album]
+    profile: Profile
   }
 
   type Query {
-    getMusician(id: Int!): Musician!
-    allMusicians: [Musician!]!
+    getUser(id: Int!): User!
+    allUsers: [User!]!
   }
 
   type RegisterResponse {
     ok: Boolean!
-    musician: Musician
+    user: User
     errors: [Error!]
   }
 

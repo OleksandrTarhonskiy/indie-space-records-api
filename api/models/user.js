@@ -1,8 +1,8 @@
 import bcrypt      from 'bcrypt';
 
 export default (sequelize, DataTypes) => {
-  const Musician = sequelize.define(
-    'musician',
+  const User = sequelize.define(
+    'user',
     {
       bandName : {
         type   : DataTypes.STRING,
@@ -32,22 +32,29 @@ export default (sequelize, DataTypes) => {
     {
       underscored : true,
       hooks       : {
-        afterValidate: async (musician) => {
-          const hashedPassword = await bcrypt.hash(musician.password, 12);
-          musician.password = hashedPassword;
+        afterValidate: async (user) => {
+          const hashedPassword = await bcrypt.hash(user.password, 12);
+          user.password = hashedPassword;
         },
       },
     }
   );
 
-  Musician.associate = (models) => {
-    Musician.hasMany(models.Album, {
+  User.associate = (models) => {
+    User.hasMany(models.Album, {
       foreignKey : {
-        name  : 'musicianId',
-        field : 'musician_id'
+        name  : 'userId',
+        field : 'user_id'
+      },
+    });
+
+    User.hasOne(models.Profile, {
+      foreignKey: {
+        name: 'userId',
+        field: 'user_id',
       },
     });
   };
 
-  return Musician;
+  return User;
 };
