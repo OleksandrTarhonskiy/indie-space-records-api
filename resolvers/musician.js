@@ -1,4 +1,3 @@
-import bcrypt      from 'bcrypt';
 import _           from 'lodash';
 
 import { tryLogin } from '../auth';
@@ -18,10 +17,9 @@ export default {
   Mutation: {
     login: (parent, { email, password }, { models, SECRET, SECRET2 }) =>
       tryLogin(email, password, models, SECRET),
-    signUp: async (parent, { password, ...otherArgs }, { models }) => {
+    signUp: async (parent, args, { models }) => {
       try {
-        const hashedPassword = await bcrypt.hash(password, 12);
-        const musician = await models.Musician.create({ ...otherArgs, password: hashedPassword });
+        const musician = await models.Musician.create(args);
 
         return {
           ok: true,
