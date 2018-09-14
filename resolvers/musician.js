@@ -20,18 +20,6 @@ export default {
       tryLogin(email, password, models, SECRET),
     signUp: async (parent, { password, ...otherArgs }, { models }) => {
       try {
-        if (password.length < 8 || password.length > 100) {
-          return {
-            ok: false,
-            errors: [
-              {
-                path: 'password',
-                message: 'The password needs to be between 8 and 100 characters long',
-              },
-            ],
-          };
-        }
-
         const hashedPassword = await bcrypt.hash(password, 12);
         const musician = await models.Musician.create({ ...otherArgs, password: hashedPassword });
 
