@@ -26,8 +26,8 @@ export const createTokens = async (musician, secret, secret2) => {
   return [createToken, createRefreshToken];
 };
 
-export const refreshTokens = async (token, refreshToken, models, SECRET) => {
-  let musicianId = -1;
+export const refreshTokens = async (token, refreshToken, models, SECRET, SECRET2) => {
+  let musicianId = 0;
   try {
     const { musician: { id } } = jwt.decode(refreshToken);
     musicianId = id;
@@ -45,13 +45,15 @@ export const refreshTokens = async (token, refreshToken, models, SECRET) => {
     return {};
   }
 
+  const refreshSecret = musician.password + SECRET2;
+
   try {
-    jwt.verify(refreshToken, musician.refreshSecret);
+    jwt.verify(refreshToken, refreshSecret);
   } catch (err) {
     return {};
   }
 
-  const [newToken, newRefreshToken] = await createTokens(musician, SECRET, musician.refreshSecret);
+  const [newToken, newRefreshToken] = await createTokens(musician, SECRET, refreshSecret);
   return {
     token: newToken,
     refreshToken: newRefreshToken,
