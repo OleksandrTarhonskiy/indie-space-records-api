@@ -6,6 +6,7 @@ export default `
     email: String!
     albums: [Album]
     profile: Profile
+    hasProfile: Boolean!
   }
 
   type Query {
@@ -29,5 +30,6 @@ export default `
   type Mutation {
     signUp(bandName: String!, name: String!, email: String!, password: String!): RegisterResponse!
     login(email: String!, password: String!): LoginResponse!
+    updateUser(id: Int!, hasProfile: Boolean!): User!
   }
 `;
