@@ -1,8 +1,13 @@
 import formatErrors from './errors';
+import requiresAuth from '../permissions';
 
 export default {
+  Query: {
+    allProfiles: requiresAuth.createResolver(async (parent, args, { models, user }) =>
+      models.Profiles.findAll({ owner: user.id }, { raw: true })),
+    },
   Mutation: {
-    createProfile: async (parent, args, { models, user }) => {
+    createProfile: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {
         await models.Profile.create({ ...args, owner: user.id });
         return {
@@ -15,6 +20,6 @@ export default {
           errors: formatErrors(err),
         };
       }
-    },
+    }),
   },
 };
