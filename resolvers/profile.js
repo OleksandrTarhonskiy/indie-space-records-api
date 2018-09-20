@@ -10,9 +10,13 @@ export default {
     createProfile: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {
         await models.Profile.create({ ...args, owner: user.id });
-        return {
-          ok: true,
-        };
+        const userOwner = await models.User.findOne({ where: { id: user.id } })
+        userOwner.hasProfile = true;
+        userOwner.save()
+
+        return ({
+          ok: true
+        });
       } catch (err) {
         console.log(err);
         return {

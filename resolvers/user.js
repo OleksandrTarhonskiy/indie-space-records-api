@@ -1,10 +1,12 @@
 import { tryLogin } from '../auth';
 import formatErrors from './errors';
+import requiresAuth from '../permissions';
 
 export default {
   Query: {
-    getUser: (parent, { id }, { models }) => models.User.findOne({ where: { id } }),
     allUsers: (parent, args, { models }) => models.User.findAll(),
+    me: requiresAuth.createResolver((parent, args, { models, user }) =>
+      models.User.findOne({ where: { id: user.id } })),
   },
   Mutation: {
     updateUser: async (parent, { id, hasProfile }, { models }) => {
@@ -14,7 +16,7 @@ export default {
      }
 
      user.hasProfile = hasProfile;
-     return user.save();
+     return user.save;
    },
     login: (parent, { email, password }, { models, SECRET, SECRET2 }) =>
       tryLogin(email, password, models, SECRET),
