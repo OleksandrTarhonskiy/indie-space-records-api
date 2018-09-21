@@ -5,19 +5,12 @@ import requiresAuth from '../permissions';
 export default {
   Query: {
     allUsers: (parent, args, { models }) => models.User.findAll(),
-    me: requiresAuth.createResolver((parent, args, { models, user }) =>
-      models.User.findOne({ where: { id: user.id } })),
+    me: (parent, args, { models, user }) => {
+
+      return models.User.findById(user.id)
+    },
   },
   Mutation: {
-    updateUser: async (parent, { id, hasProfile }, { models }) => {
-     const user = await models.User.findOne({ where: { id } })
-     if (!user) {
-       throw new Error(`Couldn’t find author with id ${id}`);
-     }
-
-     user.hasProfile = hasProfile;
-     return user.save;
-   },
     login: (parent, { email, password }, { models, SECRET, SECRET2 }) =>
       tryLogin(email, password, models, SECRET),
     signUp: async (parent, args, { models }) => {
