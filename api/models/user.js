@@ -27,7 +27,11 @@ export default (sequelize, DataTypes) => {
             msg  : 'The password needs to be between 8 and 100 characters long',
           },
         },
-      }
+      },
+      hasProfile : {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
     },
     {
       underscored : true,

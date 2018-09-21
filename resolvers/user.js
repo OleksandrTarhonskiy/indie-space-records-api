@@ -1,10 +1,14 @@
 import { tryLogin } from '../auth';
 import formatErrors from './errors';
+import requiresAuth from '../permissions';
 
 export default {
   Query: {
-    getUser: (parent, { id }, { models }) => models.User.findOne({ where: { id } }),
     allUsers: (parent, args, { models }) => models.User.findAll(),
+    me: (parent, args, { models, user }) => {
+
+      return models.User.findById(user.id)
+    },
   },
   Mutation: {
     login: (parent, { email, password }, { models, SECRET, SECRET2 }) =>

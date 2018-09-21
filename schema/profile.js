@@ -1,5 +1,6 @@
 export default `
   type Profile {
+    id: Int!
     owner: User!
     name: String!
     genres: String!
@@ -8,6 +9,10 @@ export default `
   type CreateProfile {
     ok: Boolean!
     errors: [Error!]
+  }
+
+  type Query {
+    allProfiles: [Profile!]!
   }
 
   type Mutation {
