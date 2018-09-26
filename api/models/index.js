@@ -12,7 +12,7 @@ const models = {
   User     : sequelize.import('./user'),
   Album    : sequelize.import('./album'),
   Profile  : sequelize.import('./profile'),
-  Template : sequelize.import('./template'),
+  Theme    : sequelize.import('./theme'),
 };
 
 Object.keys(models).forEach((modelName) => {

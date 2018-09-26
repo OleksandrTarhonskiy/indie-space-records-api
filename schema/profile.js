@@ -4,7 +4,7 @@ export default `
     owner: User!
     name: String!
     genres: String!
-    templates: [Template!]!
+    themes: [Theme!]!
   }
 
   type CreateProfile {

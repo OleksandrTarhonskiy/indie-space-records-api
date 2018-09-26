@@ -14,7 +14,7 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'owner',
     });
 
-    Profile.hasOne(models.Template, {
+    Profile.hasOne(models.Theme, {
       foreignKey: {
         name: 'profileId',
         field: 'profile_id',
