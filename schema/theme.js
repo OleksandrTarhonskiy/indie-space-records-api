@@ -3,7 +3,7 @@ export default `
     id: Int!
     owner: Profile!
     name: String!
-    value: String!
+    style: String!
   }
 
   type CreateTheme {
@@ -16,6 +16,6 @@ export default `
   }
 
   type Mutation {
-    createTheme(name: String!, value: String!): CreateTheme!
+    createTheme(name: String!, style: String!): CreateTheme!
   }
 `;
