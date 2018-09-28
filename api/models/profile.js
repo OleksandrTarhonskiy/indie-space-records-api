@@ -13,6 +13,13 @@ export default (sequelize, DataTypes) => {
     Profile.belongsTo(models.User, {
       foreignKey: 'owner',
     });
+
+    Profile.hasOne(models.Theme, {
+      foreignKey: {
+        name: 'profileId',
+        field: 'profile_id',
+      },
+    });
   };
 
   return Profile;

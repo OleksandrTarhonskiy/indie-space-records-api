@@ -9,9 +9,10 @@ const sequelize = new Sequelize('indie_space_records', 'postgres', 'postgres', {
 });
 
 const models = {
-  User    : sequelize.import('./user'),
-  Album   : sequelize.import('./album'),
-  Profile : sequelize.import('./profile'),
+  User     : sequelize.import('./user'),
+  Album    : sequelize.import('./album'),
+  Profile  : sequelize.import('./profile'),
+  Theme    : sequelize.import('./theme'),
 };
 
 Object.keys(models).forEach((modelName) => {
