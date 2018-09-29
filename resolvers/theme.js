@@ -19,5 +19,25 @@ export default {
         };
       }
     }),
+
+    updateTheme: requiresAuth.createResolver(async (parent, { style }, { models, user }) => {
+      try {
+        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+        const theme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
+
+        theme.style = style;
+        theme.save();
+
+        return ({
+          ok: true
+        });
+      } catch (err) {
+        console.log(err);
+        return {
+          ok: false,
+          errors: formatErrors(err),
+        };
+      }
+    }),
   },
 };
