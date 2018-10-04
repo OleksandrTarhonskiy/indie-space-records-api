@@ -1,10 +1,12 @@
 export default (sequelize, DataTypes) => {
   const Profile = sequelize.define('profile', {
     name: {
-      type: DataTypes.STRING,
+      type : DataTypes.STRING,
       unique: true,
     },
-    genres: DataTypes.STRING,
+    genres : DataTypes.STRING,
+    country: DataTypes.STRING,
+    region : DataTypes.STRING,
   },
   { underscored: true }
 );
