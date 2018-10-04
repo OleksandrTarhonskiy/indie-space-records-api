@@ -4,6 +4,8 @@ export default `
     owner: User!
     name: String!
     genres: String!
+    country: String!
+    region: String!
     theme: Theme!
   }
 
@@ -17,6 +19,6 @@ export default `
   }
 
   type Mutation {
-    createProfile(name: String!, genres: String!): CreateProfile!
+    createProfile(name: String!, genres: String!, country: String!, region: String!): CreateProfile!
   }
 `;
