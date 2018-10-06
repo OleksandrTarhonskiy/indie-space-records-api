@@ -4,6 +4,7 @@ export default `
     owner: Profile!
     name: String!
     style: String!
+    fonts: String!
   }
 
   type CreateTheme {
@@ -21,7 +22,7 @@ export default `
   }
 
   type Mutation {
-    createTheme(name: String!, style: String!): CreateTheme!
-    updateTheme(style: String!): updateTheme!
+    createTheme(name: String!, style: String!, fonts: String!): CreateTheme!
+    updateTheme(style: String!, fonts: String!): updateTheme!
   }
 `;
