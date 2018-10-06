@@ -20,12 +20,13 @@ export default {
       }
     }),
 
-    updateTheme: requiresAuth.createResolver(async (parent, { style }, { models, user }) => {
+    updateTheme: requiresAuth.createResolver(async (parent, { style, fonts }, { models, user }) => {
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
         const theme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
 
         theme.style = style;
+        theme.fonts = fonts;
         theme.save();
 
         return ({
