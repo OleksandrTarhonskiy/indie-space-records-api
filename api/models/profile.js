@@ -22,6 +22,13 @@ export default (sequelize, DataTypes) => {
         field: 'profile_id',
       },
     });
+
+    Profile.hasMany(models.Event, {
+      foreignKey: {
+        name: 'profileId',
+        field: 'profile_id',
+      },
+    });
   };
 
   return Profile;

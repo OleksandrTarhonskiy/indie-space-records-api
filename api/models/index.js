@@ -13,6 +13,7 @@ const models = {
   Album    : sequelize.import('./album'),
   Profile  : sequelize.import('./profile'),
   Theme    : sequelize.import('./theme'),
+  Event    : sequelize.import('./event'),
 };
 
 Object.keys(models).forEach((modelName) => {
