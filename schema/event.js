@@ -19,6 +19,6 @@ export default `
   }
 
   type Mutation {
-    CreateEvent(title: String!, details: String!, price: Float!, country: String!, region: String!): CreateEvent!
+    createEvent(title: String!, details: String!, price: Float!, country: String!, region: String!): CreateEvent!
   }
 `;
