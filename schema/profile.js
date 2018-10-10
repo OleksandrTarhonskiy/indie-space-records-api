@@ -7,6 +7,7 @@ export default `
     country: String!
     region: String!
     theme: Theme!
+    events: [Event!]
   }
 
   type CreateProfile {

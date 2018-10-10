@@ -6,7 +6,7 @@ export default {
     createEvent: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
-        await models.Event.create({ ...args, band: currentProfile.id });
+        await models.Event.create({ ...args, profileId: currentProfile.id });
 
         return ({
           ok: true
