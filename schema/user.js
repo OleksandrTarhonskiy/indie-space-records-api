@@ -4,7 +4,6 @@ export default `
     bandName: String!
     name: String!
     email: String!
-    albums: [Album]
     profile: Profile
     hasProfile: Boolean!
   }
@@ -13,7 +12,7 @@ export default `
     me: User!
     allUsers: [User!]!
   }
-  
+
   type RegisterResponse {
     ok: Boolean!
     user: User
