@@ -45,13 +45,6 @@ export default (sequelize, DataTypes) => {
   );
 
   User.associate = (models) => {
-    User.hasMany(models.Album, {
-      foreignKey : {
-        name  : 'userId',
-        field : 'user_id'
-      },
-    });
-
     User.hasOne(models.Profile, {
       foreignKey: {
         name: 'userId',
