@@ -6,6 +6,7 @@ export default (sequelize, DataTypes) => {
     },
     details : DataTypes.TEXT,
     price   : DataTypes.DECIMAL,
+    date    : DataTypes.DATE,
     country : DataTypes.STRING,
     region  : DataTypes.STRING,
   },
