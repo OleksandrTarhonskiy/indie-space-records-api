@@ -6,9 +6,15 @@ export default {
     allMyEvents: async (parent, args, { models, user }) => {
         const myProfile = await models.Profile.findOne({ where: { owner: user.id } });
         const myEvents = await models.Event.findAll({ where: { profileId: myProfile.id } });
-        
+
         return myEvents;
-      }
+      },
+
+    viewEvent: async (parent, { eventId }, { models }) => {
+        const event = await models.Event.findOne({ where: { id: eventId } });
+
+        return event
+      },
     },
   Mutation: {
     createEvent: requiresAuth.createResolver(async (parent, args, { models, user }) => {

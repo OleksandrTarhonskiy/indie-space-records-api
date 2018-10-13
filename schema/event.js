@@ -17,6 +17,7 @@ export default `
 
   type Query {
     allMyEvents: [Event!]!
+    viewEvent(eventId: Int!): Event!
   }
 
   type Mutation {
