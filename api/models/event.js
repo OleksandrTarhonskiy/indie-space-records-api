@@ -5,9 +5,8 @@ export default (sequelize, DataTypes) => {
       unique: true,
     },
     details : DataTypes.TEXT,
-    date    : DataTypes.DATE,
-    time    : DataTypes.TIME,
     price   : DataTypes.DECIMAL,
+    date    : DataTypes.DATE,
     country : DataTypes.STRING,
     region  : DataTypes.STRING,
   },
@@ -17,7 +16,8 @@ export default (sequelize, DataTypes) => {
   Event.associate = (models) => {
     Event.belongsTo(models.Profile, {
       foreignKey: {
-        foreignKey: 'band',
+        name: 'profileId',
+        field: 'profile_id',
       },
     });
   };

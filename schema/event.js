@@ -5,6 +5,7 @@ export default `
     title: String!
     details: String!
     price: Float!
+    date: String!
     country: String!
     region: String!
   }
@@ -15,10 +16,11 @@ export default `
   }
 
   type Query {
-    allEvents: [Event!]!
+    allMyEvents: [Event!]!
+    viewEvent(eventId: Int!): Event!
   }
 
   type Mutation {
-    createEvent(title: String!, details: String!, price: Float!, country: String!, region: String!): CreateEvent!
+    createEvent(title: String!, details: String!, price: Float!, date: String!, country: String!, region: String!): CreateEvent!
   }
 `;

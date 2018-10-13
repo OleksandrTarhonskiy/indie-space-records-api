@@ -10,7 +10,6 @@ const sequelize = new Sequelize('indie_space_records', 'postgres', 'postgres', {
 
 const models = {
   User     : sequelize.import('./user'),
-  Album    : sequelize.import('./album'),
   Profile  : sequelize.import('./profile'),
   Theme    : sequelize.import('./theme'),
   Event    : sequelize.import('./event'),
