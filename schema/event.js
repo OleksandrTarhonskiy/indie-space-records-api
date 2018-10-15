@@ -8,6 +8,7 @@ export default `
     date: String!
     country: String!
     region: String!
+    address: String!
   }
 
   type CreateEvent {
@@ -21,6 +22,6 @@ export default `
   }
 
   type Mutation {
-    createEvent(title: String!, details: String!, price: Float!, date: String!, country: String!, region: String!): CreateEvent!
+    createEvent(title: String!, details: String!, price: Float!, date: String!, country: String!, region: String!, address: String!): CreateEvent!
   }
 `;

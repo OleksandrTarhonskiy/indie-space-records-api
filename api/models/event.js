@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
     date    : DataTypes.DATE,
     country : DataTypes.STRING,
     region  : DataTypes.STRING,
+    address : DataTypes.STRING,
   },
   { underscored: true }
 );
