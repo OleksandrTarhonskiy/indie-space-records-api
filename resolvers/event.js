@@ -33,5 +33,22 @@ export default {
         };
       }
     }),
+
+    deleteEvent: requiresAuth.createResolver(async (parent, { eventId }, { models, user }) => {
+      try {
+        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+        await models.Event.destroy({ where: { id: eventId } });
+
+        return ({
+          ok: true
+        });
+      } catch (err) {
+        console.log(err);
+        return {
+          ok: false,
+          errors: formatErrors(err),
+        };
+      }
+    }),
   },
 };
