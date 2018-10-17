@@ -21,6 +21,11 @@ export default `
     errors: [Error!]
   }
 
+  type updateEvent {
+    ok: Boolean!
+    errors: [Error!]
+  }
+
   type Query {
     allMyEvents: [Event!]!
     viewEvent(eventId: Int!): Event!
@@ -28,6 +33,7 @@ export default `
 
   type Mutation {
     createEvent(title: String!, details: String!, price: Float!, date: String!, country: String!, region: String!, address: String!): CreateEvent!
+    updateEvent(eventId: Int!, title: String!, details: String!, price: Float!, date: String!, country: String!, region: String!, address: String!): updateEvent!
     deleteEvent(eventId: Int!): deleteEvent!
   }
 `;

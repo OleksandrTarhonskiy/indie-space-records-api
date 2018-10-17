@@ -50,5 +50,32 @@ export default {
         };
       }
     }),
+
+    updateEvent: requiresAuth.createResolver(async (parent, { eventId, title, details, price, country, region, address, date }, { models, user }
+      ) => {
+      try {
+        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+        const event = await models.Event.findOne({ where: { id: eventId } });
+
+        event.title = title;
+        event.details = details;
+        event.price = price;
+        event.country = country;
+        event.region = region;
+        event.address = address;
+        event.date = date;
+        event.save();
+
+        return ({
+          ok: true
+        });
+      } catch (err) {
+        console.log(err);
+        return {
+          ok: false,
+          errors: formatErrors(err),
+        };
+      }
+    }),
   },
 };
