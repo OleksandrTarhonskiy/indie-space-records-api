@@ -15,11 +15,17 @@ export default `
     errors: [Error!]
   }
 
+  type UptadeProfile {
+    ok: Boolean!
+    errors: [Error!]
+  }
+
   type Query {
     allProfiles: [Profile!]!
   }
 
   type Mutation {
     createProfile(name: String!, genres: String!, country: String!, region: String!): CreateProfile!
+    UptadeProfile(profileId: Int!, name: String!, genres: String!, country: String!, region: String!): UptadeProfile!
   }
 `;
