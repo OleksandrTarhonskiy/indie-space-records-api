@@ -33,7 +33,7 @@ export default {
       }
     }),
 
-    UptadeProfile: requiresAuth.createResolver(async (parent, { profileId, name, genres, country, region }, { models, user }
+    updateProfile: requiresAuth.createResolver(async (parent, { profileId, name, genres, country, region }, { models, user }
       ) => {
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });

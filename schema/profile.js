@@ -26,6 +26,6 @@ export default `
 
   type Mutation {
     createProfile(name: String!, genres: String!, country: String!, region: String!): CreateProfile!
-    UptadeProfile(profileId: Int!, name: String!, genres: String!, country: String!, region: String!): UptadeProfile!
+    updateProfile(profileId: Int!, name: String!, genres: String!, country: String!, region: String!): UptadeProfile!
   }
 `;
