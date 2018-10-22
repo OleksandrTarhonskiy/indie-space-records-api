@@ -32,5 +32,28 @@ export default {
         };
       }
     }),
+
+    updateProfile: requiresAuth.createResolver(async (parent, { profileId, name, genres, country, region }, { models, user }
+      ) => {
+      try {
+        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+
+        currentProfile.name = name;
+        currentProfile.genres = genres;
+        currentProfile.country = country;
+        currentProfile.region = region;
+        currentProfile.save();
+
+        return ({
+          ok: true
+        });
+      } catch (err) {
+        console.log(err);
+        return {
+          ok: false,
+          errors: formatErrors(err),
+        };
+      }
+    }),
   },
 };
