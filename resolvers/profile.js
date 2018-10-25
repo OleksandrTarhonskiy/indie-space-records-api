@@ -43,7 +43,7 @@ export default {
 
       const sameNameProfile = await models.Profile.findOne({ where: { name: name } });
 
-      if (!sameNameProfile) {
+      if (sameNameProfile.id === currentProfile.id) {
         currentProfile.save();
       } else {
         return {
