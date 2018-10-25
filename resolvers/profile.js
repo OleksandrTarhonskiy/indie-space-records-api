@@ -25,35 +25,36 @@ export default {
           ok: true
         });
       } catch (err) {
-        console.log(err);
         return {
           ok: false,
-          errors: formatErrors(err),
+          errors: formatErrors(err, models),
         };
       }
     }),
 
     updateProfile: requiresAuth.createResolver(async (parent, { profileId, name, genres, country, region }, { models, user }
       ) => {
-      try {
-        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+      const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
 
-        currentProfile.name = name;
-        currentProfile.genres = genres;
-        currentProfile.country = country;
-        currentProfile.region = region;
+      currentProfile.name = name;
+      currentProfile.genres = genres;
+      currentProfile.country = country;
+      currentProfile.region = region;
+
+      const sameNameProfile = await models.Profile.findOne({ where: { name: name } });
+
+      if (!sameNameProfile) {
         currentProfile.save();
-
-        return ({
-          ok: true
-        });
-      } catch (err) {
-        console.log(err);
+      } else {
         return {
           ok: false,
-          errors: formatErrors(err),
+          errors: [{ path: 'name', message: 'name must be unique' }],
         };
       }
+
+      return ({
+        ok: true
+      });
     }),
   },
 };
