@@ -64,7 +64,7 @@ export default {
 
       const sameEvent = await models.Event.findOne({ where: { title: title } });
 
-      if (!sameEvent) {
+      if (sameEvent.id === event.id) {
         event.save();
       } else {
         return {
