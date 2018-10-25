@@ -4,9 +4,10 @@ export default (sequelize, DataTypes) => {
       type : DataTypes.STRING,
       unique: true,
     },
-    genres : DataTypes.STRING,
-    country: DataTypes.STRING,
-    region : DataTypes.STRING,
+    genres   : DataTypes.STRING,
+    country  : DataTypes.STRING,
+    region   : DataTypes.STRING,
+    currency : DataTypes.STRING,
   },
   { underscored: true }
 );
