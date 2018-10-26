@@ -6,6 +6,7 @@ export default `
     genres: String!
     country: String!
     region: String!
+    currency: String!
     theme: Theme!
     events: [Event!]
   }
@@ -25,7 +26,7 @@ export default `
   }
 
   type Mutation {
-    createProfile(name: String!, genres: String!, country: String!, region: String!): CreateProfile!
-    updateProfile(profileId: Int!, name: String!, genres: String!, country: String!, region: String!): UptadeProfile!
+    createProfile(name: String!, genres: String!, country: String!, region: String!, currency: String!): CreateProfile!
+    updateProfile(profileId: Int!, name: String!, genres: String!, country: String!, region: String!, currency: String!): UptadeProfile!
   }
 `;

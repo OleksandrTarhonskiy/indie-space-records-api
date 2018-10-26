@@ -32,7 +32,7 @@ export default {
       }
     }),
 
-    updateProfile: requiresAuth.createResolver(async (parent, { profileId, name, genres, country, region }, { models, user }
+    updateProfile: requiresAuth.createResolver(async (parent, { profileId, name, genres, country, region, currency }, { models, user }
       ) => {
       const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
 
@@ -40,6 +40,7 @@ export default {
       currentProfile.genres = genres;
       currentProfile.country = country;
       currentProfile.region = region;
+      currentProfile.currency = currency;
 
       const sameNameProfile = await models.Profile.findOne({ where: { name: name } });
 
