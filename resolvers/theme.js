@@ -6,7 +6,14 @@ export default {
     createTheme: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
-        await models.Theme.create({ ...args, owner: currentProfile.id });
+        const theme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
+
+        if (theme) {
+          theme.destroy();
+          await models.Theme.create({ ...args, owner: currentProfile.id });
+        } else {
+          await models.Theme.create({ ...args, owner: currentProfile.id });
+        }
 
         return ({
           ok: true
