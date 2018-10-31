@@ -22,7 +22,7 @@ export default `
   }
 
   type Query {
-    allProfiles: [Profile!]!
+    myProfile: Profile!
   }
 
   type Mutation {
