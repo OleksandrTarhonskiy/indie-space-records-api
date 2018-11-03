@@ -7,7 +7,7 @@ export default `
     country: String!
     region: String!
     currency: String!
-    theme: Theme!
+    theme: Theme
     events: [Event!]
   }
 
