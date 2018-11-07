@@ -30,6 +30,13 @@ export default (sequelize, DataTypes) => {
         field: 'profile_id',
       },
     });
+
+    Profile.hasMany(models.Song, {
+      foreignKey: {
+        name: 'profileId',
+        field: 'profile_id',
+      },
+    });
   };
 
   return Profile;
