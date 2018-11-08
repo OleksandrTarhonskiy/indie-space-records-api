@@ -4,6 +4,8 @@ export default `
     author: Profile!
     name: String!
     price: Float!
+    pricingType: String!
+    release: String!
     url: String
     filetype: String
   }
@@ -14,6 +16,6 @@ export default `
   }
 
   type Mutation {
-    uploadSong(name: String!, price: Float!, file: File): Boolean!
+    uploadSong(name: String!, price: Float!, pricingType: String!, release: String!, file: File): Boolean!
   }
 `;
