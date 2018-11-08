@@ -3,7 +3,7 @@ import requiresAuth from '../permissions';
 
 export default {
   Mutation: {
-    uploadSong: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+    uploadSong: requiresAuth.createResolver(async (parent, { file, ...args }, { models, user }) => {
       try {
         const currentProfile = await models.Profile.findOne({ where: { author: user.id } });
 
