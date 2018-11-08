@@ -15,7 +15,12 @@ export default `
     path: String!,
   }
 
+  type uploadSong {
+    ok: Boolean!
+    errors: [Error!]
+  }
+
   type Mutation {
-    uploadSong(name: String!, price: Float!, pricingType: String!, release: String!, file: File): Boolean!
+    uploadSong(name: String!, price: Float!, pricingType: String!, release: String!, file: File): uploadSong!
   }
 `;

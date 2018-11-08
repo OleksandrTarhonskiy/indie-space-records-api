@@ -8,7 +8,7 @@ export default {
         const currentProfile = await models.Profile.findOne({ where: { author: user.id } });
 
         const songData = args;
-
+      
         if (file) {
           songData.filetype = file.type;
           songData.url = file.path;
