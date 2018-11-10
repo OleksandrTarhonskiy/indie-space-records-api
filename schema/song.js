@@ -9,7 +9,7 @@ export default `
     url: String
     filetype: String
   }
-
+  
   input File {
     type: String!,
     path: String!,
