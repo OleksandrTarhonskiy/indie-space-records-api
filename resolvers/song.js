@@ -5,10 +5,10 @@ export default {
   Mutation: {
     uploadSong: requiresAuth.createResolver(async (parent, { file, ...args }, { models, user }) => {
       try {
-        const currentProfile = await models.Profile.findOne({ where: { author: user.id } });
+        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
 
         const songData = args;
-      
+
         if (file) {
           songData.filetype = file.type;
           songData.url = file.path;
