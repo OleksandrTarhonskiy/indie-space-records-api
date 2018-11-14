@@ -2,7 +2,7 @@ export default (sequelize, DataTypes) => {
   const Product = sequelize.define('product', {
     type         : DataTypes.STRING,
     title        : DataTypes.STRING,
-    desc         : DataTypes.STRING,
+    desc         : DataTypes.TEXT,
     price        : DataTypes.DECIMAL,
     deliveryType : DataTypes.STRING,
     inStock      : {
