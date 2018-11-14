@@ -14,6 +14,7 @@ const models = {
   Theme   : sequelize.import('./theme'),
   Event   : sequelize.import('./event'),
   Song    : sequelize.import('./song'),
+  Product : sequelize.import('./product'),
 };
 
 Object.keys(models).forEach((modelName) => {
