@@ -51,10 +51,7 @@ const addUser = async (req, res, next) => {
   next();
 };
 
-app.use(addUser);
-
 const uploadDir = 'files';
-
 const fileMiddleware = (req, res, next) => {
   if (!req.is('multipart/form-data')) {
     return next();
@@ -80,6 +77,8 @@ const fileMiddleware = (req, res, next) => {
     next();
   });
 };
+
+app.use(addUser);
 
 const graphqlEndpoint = '/graphql';
 
