@@ -14,7 +14,7 @@ export default {
           songData.url = file.path;
         }
 
-        const message = await models.Song.create({ ...songData, profileId: currentProfile.id, });
+        await models.Song.create({ ...songData, profileId: currentProfile.id, });
 
         return ({
           ok: true
