@@ -2,6 +2,14 @@ import formatErrors from './errors';
 import requiresAuth from '../permissions';
 
 export default {
+  Query: {
+    allMyProducts: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+      const profile = await models.Profile.findOne({ where: { owner: user.id } });
+      const products = await models.Product.findAll({ where: { profileId: profile.id } });
+
+      return products;
+    }),
+  },
   Mutation: {
     createProduct: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {

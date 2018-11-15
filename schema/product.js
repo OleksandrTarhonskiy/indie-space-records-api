@@ -10,6 +10,10 @@ export default `
     inStock: Boolean!
   }
 
+  type Query {
+    allMyProducts: [Product!]!
+  }
+
   type createProduct {
     ok: Boolean!
     errors: [Error!]
