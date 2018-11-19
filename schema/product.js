@@ -26,6 +26,6 @@ export default `
 
   type Mutation {
     createProduct(type: String!, title: String!, desc: String!, price: Float!, deliveryType: String!): createProduct!
-    updateProduct(productId: Int!, type: String!, title: String!, desc: String!, price: Float!, inStock: Boolean!): UptadeProfile!
+    updateProduct(productId: Int!, type: String, title: String, desc: String, price: Float, inStock: Boolean): UptadeProfile!
   }
 `;
