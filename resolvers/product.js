@@ -3,9 +3,13 @@ import requiresAuth from '../permissions';
 
 export default {
   Query: {
-    allMyProducts: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+    allMyProducts: requiresAuth.createResolver(async (parent, { searchQuery }, { models, user }) => {
       const profile = await models.Profile.findOne({ where: { owner: user.id } });
-      const products = await models.Product.findAll({ where: { profileId: profile.id } });
+      let products = await models.Product.findAll({ where: { profileId: profile.id } });
+
+      if (searchQuery) {
+        products = products.filter(el => el.title.includes(searchQuery.toLowerCase()))
+      }
 
       return products;
     }),

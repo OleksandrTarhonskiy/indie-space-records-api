@@ -11,7 +11,7 @@ export default `
   }
 
   type Query {
-    allMyProducts: [Product!]!
+    allMyProducts(searchQuery: String): [Product!]!
   }
 
   type createProduct {
