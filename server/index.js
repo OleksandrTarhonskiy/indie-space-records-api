@@ -12,15 +12,15 @@ import cors                                from 'cors';
 import jwt                                 from 'jsonwebtoken';
 import formidable                          from 'formidable';
 
-import models                              from './api/models';
-import { refreshTokens }                   from './auth';
+import models                              from '../api/models';
+import { refreshTokens }                   from '../api/auth';
 
 
 const SECRET = 'draste';
 const SECRET2 = 'drastepidkraste';
 
-const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
-const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')));
+const typeDefs = mergeTypes(fileLoader(path.join(__dirname, '../api/graphql/schema')));
+const resolvers = mergeResolvers(fileLoader(path.join(__dirname, '../api/graphql/resolvers')));
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
