@@ -1,5 +1,5 @@
 import formatErrors from './errors';
-import requiresAuth from '../permissions';
+import requiresAuth from '../../permissions';
 
 export default {
   Profile: {
