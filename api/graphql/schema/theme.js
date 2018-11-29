@@ -5,6 +5,7 @@ export default `
     name: String!
     style: String!
     fonts: String!
+    sections: [Section!]
   }
 
   type CreateTheme {
