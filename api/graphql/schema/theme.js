@@ -20,6 +20,7 @@ export default `
 
   type Query {
     allThemes: [Theme!]!
+    myTheme: Theme!
   }
 
   type Mutation {
