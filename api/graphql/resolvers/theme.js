@@ -6,13 +6,37 @@ export default {
     createTheme: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
-        const theme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
+        const theme          = await models.Theme.findOne({ where: { owner: currentProfile.id } });
+
+        const createThemeWithSections = async () => {
+          await models.Theme.create({ ...args, owner: currentProfile.id });
+
+          const currentTheme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
+          const styles       = JSON.parse(currentTheme.style);
+
+          styles.sections.map(section => {
+            const params = {
+              name     : section.name,
+              type     : section.type,
+              style    : JSON.stringify(section.style),
+              constent : section.content,
+            };
+
+            return ( models.Section.create({ ...params, themeId: currentTheme.id }) )
+          })
+
+          let basicThemeStyle = JSON.parse(currentTheme.style)
+          delete basicThemeStyle.sections;
+          currentTheme.style = JSON.stringify(basicThemeStyle);
+          currentTheme.save();
+        }
 
         if (theme) {
           theme.destroy();
-          await models.Theme.create({ ...args, owner: currentProfile.id });
+          createThemeWithSections();
+
         } else {
-          await models.Theme.create({ ...args, owner: currentProfile.id });
+          createThemeWithSections();
         }
 
         return ({
