@@ -41,14 +41,14 @@ export default {
 
           let basicThemeStyle = JSON.parse(currentTheme.style)
           delete basicThemeStyle.sections;
-          currentTheme.style = JSON.stringify(basicThemeStyle);
+          currentTheme.style = JSON.stringify(basicThemeStyle.basicStyles);
           currentTheme.save();
         }
 
         if (theme) {
           theme.destroy();
           createThemeWithSections();
-
+          await models.Section.destroy({ where: { themeId: null } })
         } else {
           createThemeWithSections();
         }
