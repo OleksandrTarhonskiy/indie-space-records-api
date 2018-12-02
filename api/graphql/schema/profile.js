@@ -23,6 +23,7 @@ export default `
 
   type Query {
     myProfile: Profile!
+    allProfiles: [Profile!]
   }
 
   type Mutation {

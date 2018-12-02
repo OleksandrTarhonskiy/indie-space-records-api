@@ -10,7 +10,8 @@ export default {
     },
   },
   Query: {
-    myProfile: (parent, args, { models, user }) => models.Profile.findOne({ where: { owner: user.id } })
+    myProfile: (parent, args, { models, user }) => models.Profile.findOne({ where: { owner: user.id } }),
+    allProfiles: (parent, args, { models }) => models.Profile.findAll()
     },
   Mutation: {
     createProfile: requiresAuth.createResolver(async (parent, args, { models, user }) => {
