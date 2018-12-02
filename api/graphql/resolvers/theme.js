@@ -46,9 +46,9 @@ export default {
         }
 
         if (theme) {
+          await models.Section.destroy({ where: { themeId: theme.id } })
           theme.destroy();
           createThemeWithSections();
-          await models.Section.destroy({ where: { themeId: null } })
         } else {
           createThemeWithSections();
         }
