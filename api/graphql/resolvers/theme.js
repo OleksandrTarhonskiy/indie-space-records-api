@@ -3,19 +3,8 @@ import requiresAuth from '../../permissions';
 
 export default {
   Theme: {
-    sections: async (parent, args, { models, user }) => {
-      const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
-      const theme = await models.Theme.findOne({ where: { owner: currentProfile.id } })
-      const sections = await models.Section.findAll({ where: { themeId: theme.id } })
-      return sections
-    },
+    sections: async (parent, args, { models, user }) => await models.Section.findAll({ where: { themeId: parent.id } })
   },
-  Query: {
-    myTheme: async (parent, args, { models, user }) => {
-      const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
-      const theme = await models.Theme.findOne({ where: { owner: currentProfile.id } })
-      return theme
-    }},
   Mutation: {
     createTheme: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {

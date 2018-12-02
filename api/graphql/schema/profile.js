@@ -24,6 +24,7 @@ export default `
   type Query {
     myProfile: Profile!
     allProfiles: [Profile!]
+    fetchProfile(profileId: Int!): Profile!
   }
 
   type Mutation {
