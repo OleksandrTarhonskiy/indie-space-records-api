@@ -3,7 +3,8 @@ import requiresAuth from '../../permissions';
 
 export default {
   Profile: {
-    theme: async (parent, args, { models, user }) => await models.Theme.findOne({ where: { owner: parent.id } })
+    theme: async (parent, args, { models }) => await models.Theme.findOne({ where: { owner: parent.id } }),
+    events: async (parent, args, { models }) => await models.Event.findAll({ where: { profileId: parent.id } }),
   },
   Query: {
     myProfile: (parent, args, { models, user }) => models.Profile.findOne({ where: { owner: user.id } }),

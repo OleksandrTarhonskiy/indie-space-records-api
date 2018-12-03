@@ -9,6 +9,7 @@ export default `
     currency: String!
     theme: Theme
     events: [Event!]
+    products: [Product!]
   }
 
   type CreateProfile {
