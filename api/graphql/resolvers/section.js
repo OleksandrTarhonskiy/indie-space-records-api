@@ -7,10 +7,10 @@ export default {
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
         const currentTheme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
-        const section = await models.Theme.findOne({ where: { id: sectionId, owner: currentTheme.id } });
+        const section = await models.Section.findOne({ where: { id: sectionId, themeId: currentTheme.id } });
 
-        theme.style = style;
-        theme.save();
+        section.style = style;
+        section.save();
 
         return ({
           ok: true
