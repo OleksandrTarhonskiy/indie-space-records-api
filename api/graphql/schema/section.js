@@ -8,6 +8,10 @@ export default `
     content: String
   }
 
+  type Query {
+    allMySections: [Section!]!
+  }
+
   type updateSectionStyle {
     ok: Boolean!
     errors: [Error!]
