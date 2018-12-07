@@ -2,6 +2,15 @@ import formatErrors from './errors';
 import requiresAuth from '../../permissions';
 
 export default {
+  Query: {
+    allMySections: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+      const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+      const currentTheme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
+      const sections = await models.Section.findAll({ where: { themeId: currentTheme.id } });
+
+      return sections;
+    }),
+  },
   Mutation: {
     updateSectionStyle: requiresAuth.createResolver(async (parent, { sectionId, style }, { models, user }) => {
       try {
