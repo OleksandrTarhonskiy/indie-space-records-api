@@ -17,8 +17,14 @@ export default `
     errors: [Error!]
   }
 
+  type updateSectionContent {
+    ok: Boolean!
+    errors: [Error!]
+  }
+
   type Mutation {
     crateSection(name: String!, type: String!, style: String!, content: String): Boolean!
     updateSectionStyle(sectionId: Int!, style: String!): updateSectionStyle!
+    updateSectionContent(sectionId: Int!, type: String, name: String, content: String): updateSectionContent!
   }
 `;
