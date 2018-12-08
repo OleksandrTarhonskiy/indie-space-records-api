@@ -32,5 +32,28 @@ export default {
         };
       }
     }),
+
+    updateSectionContent: requiresAuth.createResolver(async (parent, { sectionId, type, name, content }, { models, user }) => {
+      try {
+        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+        const currentTheme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
+        const section = await models.Section.findOne({ where: { id: sectionId, themeId: currentTheme.id } });
+
+        section.type    = type;
+        section.name    = name;
+        section.content = content;
+        section.save();
+
+        return ({
+          ok: true
+        });
+      } catch (err) {
+        console.log(err);
+        return {
+          ok: false,
+          errors: formatErrors(err),
+        };
+      }
+    }),
   },
 };
