@@ -12,6 +12,23 @@ export default {
     }),
   },
   Mutation: {
+    createSection: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+      try {
+        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+        const currentTheme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
+        await models.Section.create({ ...args, themeId: currentTheme.id });
+
+        return ({
+          ok: true
+        });
+      } catch (err) {
+        return {
+          ok: false,
+          errors: formatErrors(err, models),
+        };
+      }
+    }),
+
     updateSectionStyle: requiresAuth.createResolver(async (parent, { sectionId, style }, { models, user }) => {
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });

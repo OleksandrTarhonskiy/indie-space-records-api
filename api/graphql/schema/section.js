@@ -12,6 +12,11 @@ export default `
     allMySections: [Section!]!
   }
 
+  type crateSection {
+    ok: Boolean!
+    errors: [Error!]
+  }
+
   type updateSectionStyle {
     ok: Boolean!
     errors: [Error!]
@@ -23,7 +28,7 @@ export default `
   }
 
   type Mutation {
-    crateSection(name: String!, type: String!, style: String!, content: String): Boolean!
+    createSection(name: String!, type: String!, style: String!, content: String): crateSection!
     updateSectionStyle(sectionId: Int!, style: String!): updateSectionStyle!
     updateSectionContent(sectionId: Int!, type: String, name: String, content: String): updateSectionContent!
   }
