@@ -3,7 +3,7 @@ import requiresAuth from '../../permissions';
 
 export default {
   Theme: {
-    sections: async (parent, args, { models, user }) => await models.Section.findAll({ where: { themeId: parent.id } })
+    sections: async (parent, args, { models, user }) => await models.Section.findAll({ where: { themeId: parent.id }, order: [['id', 'ASC']] })
   },
   Mutation: {
     createTheme: requiresAuth.createResolver(async (parent, args, { models, user }) => {

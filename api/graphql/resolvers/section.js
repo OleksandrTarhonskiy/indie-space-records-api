@@ -6,7 +6,7 @@ export default {
     allMySections: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
       const currentTheme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
-      const sections = await models.Section.findAll({ where: { themeId: currentTheme.id } });
+      const sections = await models.Section.findAll({ where: { themeId: currentTheme.id }, order: [['id', 'ASC']] });
 
       return sections;
     }),
