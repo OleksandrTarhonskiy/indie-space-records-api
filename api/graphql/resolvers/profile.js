@@ -3,15 +3,15 @@ import requiresAuth from '../../permissions';
 
 export default {
   Profile: {
-    theme: async (parent, args, { models, user }) => {
-      const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
-      const theme = await models.Theme.findOne({ where: { owner: currentProfile.id } })
-      return theme
-    },
+    theme: async (parent, args, { models }) => await models.Theme.findOne({ where: { owner: parent.id } }),
+    events: async (parent, args, { models }) => await models.Event.findAll({ where: { profileId: parent.id } }),
+    products: async (parent, args, { models }) => await models.Product.findAll({ where: { profileId: parent.id } }),
   },
   Query: {
-    myProfile: (parent, args, { models, user }) => models.Profile.findOne({ where: { owner: user.id } })
-    },
+    myProfile: (parent, args, { models, user }) => models.Profile.findOne({ where: { owner: user.id } }),
+    allProfiles: (parent, args, { models }) => models.Profile.findAll(),
+    fetchProfile: async (parent, { profileId }, { models }) => await models.Profile.findOne({ where: { id: profileId } })
+  },
   Mutation: {
     createProfile: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {
@@ -36,10 +36,10 @@ export default {
       ) => {
       const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
 
-      currentProfile.name = name;
-      currentProfile.genres = genres;
-      currentProfile.country = country;
-      currentProfile.region = region;
+      currentProfile.name     = name;
+      currentProfile.genres   = genres;
+      currentProfile.country  = country;
+      currentProfile.region   = region;
       currentProfile.currency = currency;
 
       const sameNameProfile = await models.Profile.findOne({ where: { name: name } });

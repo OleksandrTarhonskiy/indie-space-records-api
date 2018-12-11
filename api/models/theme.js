@@ -11,6 +11,13 @@ export default (sequelize, DataTypes) => {
     Theme.belongsTo(models.Profile, {
       foreignKey: 'owner',
     });
+
+    Theme.hasMany(models.Section, {
+      foreignKey: {
+        name: 'themeId',
+        field: 'theme_id',
+      },
+    });
   };
 
   return Theme;

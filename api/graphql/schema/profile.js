@@ -9,6 +9,7 @@ export default `
     currency: String!
     theme: Theme
     events: [Event!]
+    products: [Product!]
   }
 
   type CreateProfile {
@@ -23,6 +24,8 @@ export default `
 
   type Query {
     myProfile: Profile!
+    allProfiles: [Profile!]
+    fetchProfile(profileId: Int!): Profile!
   }
 
   type Mutation {

@@ -5,6 +5,7 @@ export default `
     name: String!
     style: String!
     fonts: String!
+    sections: [Section!]
   }
 
   type CreateTheme {
@@ -19,6 +20,7 @@ export default `
 
   type Query {
     allThemes: [Theme!]!
+    myTheme: Theme!
   }
 
   type Mutation {
