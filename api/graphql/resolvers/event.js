@@ -36,7 +36,7 @@ export default {
     deleteEvent: requiresAuth.createResolver(async (parent, { eventId }, { models, user }) => {
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
-        await models.Event.destroy({ where: { id: eventId } });
+        await models.Event.destroy({ where: { id: eventId, profileId: currentProfile.id } });
 
         return ({
           ok: true
