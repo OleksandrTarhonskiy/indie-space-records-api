@@ -72,5 +72,22 @@ export default {
         };
       }
     }),
+
+    deleteSection: requiresAuth.createResolver(async (parent, { sectionId }, { models, user }) => {
+      try {
+        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+        const currentTheme = await models.Theme.findOne({ where: { owner: currentProfile.id } });
+        await models.Section.destroy({ where: { id: sectionId, themeId: currentTheme.id } });
+
+        return ({
+          ok: true
+        });
+      } catch (err) {
+        return {
+          ok: false,
+          errors: formatErrors(err, models),
+        };
+      }
+    }),
   },
 };
