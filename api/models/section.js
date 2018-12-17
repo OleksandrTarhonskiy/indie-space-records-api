@@ -12,6 +12,13 @@ export default (sequelize, DataTypes) => {
     Section.belongsTo(models.Theme, {
       foreignKey: 'owner',
     });
+
+    Section.hasMany(models.Widget, {
+      foreignKey: {
+        name: 'sectionId',
+        field: 'section_id',
+      },
+    });
   };
 
   return Section;
