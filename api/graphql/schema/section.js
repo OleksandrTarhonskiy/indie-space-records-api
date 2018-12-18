@@ -6,6 +6,7 @@ export default `
     type: String!
     style: String!
     content: String
+    widgets: [Widget!]
   }
 
   type Query {

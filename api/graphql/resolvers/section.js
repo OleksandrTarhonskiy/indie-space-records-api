@@ -2,6 +2,9 @@ import formatErrors from './errors';
 import requiresAuth from '../../permissions';
 
 export default {
+  Section: {
+    widgets: async (parent, args, { models }) => await models.Widget.findAll({ where: { sectionId: parent.id } })
+  },
   Query: {
     allMySections: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
