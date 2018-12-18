@@ -2,6 +2,13 @@ import formatErrors from './errors';
 import requiresAuth from '../../permissions';
 
 export default {
+  Query: {
+    allWidgets: requiresAuth.createResolver(async (parent, args, { models }) => {
+      const widgets = await models.Widget.findAll();
+
+      return widgets;
+    }),
+  },
   Mutation: {
     addWidget: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       try {

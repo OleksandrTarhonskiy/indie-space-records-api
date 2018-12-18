@@ -4,6 +4,11 @@ export default `
     section: Section!
     type: String!
     link: String!
+    sectionId: Int!
+  }
+
+  type Query {
+    allWidgets: [Widget!]!
   }
 
   type addWidget {
