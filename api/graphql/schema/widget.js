@@ -2,7 +2,6 @@ export default `
   type Widget {
     id: Int!
     section: Section!
-    type: String!
     link: String!
     sectionId: Int!
   }
@@ -17,6 +16,6 @@ export default `
   }
 
   type Mutation {
-    addWidget(sectionId: Int!, type: String!, link: String!): addWidget!
+    addWidget(sectionId: Int!, link: String!): addWidget!
   }
 `;

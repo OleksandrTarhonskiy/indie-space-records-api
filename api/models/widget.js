@@ -1,6 +1,5 @@
 export default (sequelize, DataTypes) => {
   const Widget = sequelize.define('widget', {
-    type : DataTypes.STRING,
     link : DataTypes.STRING,
   },
   { underscored: true }
