@@ -16,6 +16,13 @@ export default {
   },
   Mutation: {
     createProduct: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+      if (args.price < 0) {
+        return {
+          ok: false,
+          errors: [{ path: 'price', message: 'Price must be greater than 0' }],
+        };
+      }
+
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
 
@@ -34,6 +41,13 @@ export default {
 
     updateProduct: requiresAuth.createResolver(async (parent, { productId, type, title, price, inStock }, { models, user }
       ) => {
+      if (price < 0) {
+        return {
+          ok: false,
+          errors: [{ path: 'price', message: 'Price must be greater than 0' }],
+        };
+      }
+
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
         const product = await models.Product.findOne({ where: { id: productId } });

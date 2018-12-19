@@ -18,6 +18,13 @@ export default {
     },
   Mutation: {
     createEvent: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+      if (args.price < 0) {
+        return {
+          ok: false,
+          errors: [{ path: 'price', message: 'Price must be greater than 0' }],
+        };
+      }
+      
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
         await models.Event.create({ ...args, profileId: currentProfile.id });
@@ -51,6 +58,13 @@ export default {
 
     updateEvent: requiresAuth.createResolver(async (parent, { eventId, title, details, price, country, region, address, date }, { models, user }
       ) => {
+      if (price < 0) {
+        return {
+          ok: false,
+          errors: [{ path: 'price', message: 'Price must be greater than 0' }],
+        };
+      }
+
       const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
       const event = await models.Event.findOne({ where: { id: eventId, profileId: currentProfile.id  } });
 
