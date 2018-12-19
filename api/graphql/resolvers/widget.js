@@ -23,5 +23,20 @@ export default {
         };
       }
     }),
+
+    deleteWidget: requiresAuth.createResolver(async (parent, { widgetId }, { models }) => {
+      try {
+        await models.Widget.destroy({ where: { id: widgetId } });
+
+        return ({
+          ok: true
+        });
+      } catch (err) {
+        return {
+          ok: false,
+          errors: formatErrors(err, models),
+        };
+      }
+    }),
   },
 };
