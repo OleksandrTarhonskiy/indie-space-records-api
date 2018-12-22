@@ -18,11 +18,18 @@ export default {
         const songData = args;
 
         if (file) {
-          songData.filetype = file.type;
-          songData.url = file.path;
-        }
+          if (file.type.startsWith('audio/')) {
+            songData.filetype = file.type;
+            songData.url      = file.path;
 
-        await models.Song.create({ ...songData, profileId: currentProfile.id, });
+            await models.Song.create({ ...songData, profileId: currentProfile.id, });
+          } else {
+            return {
+              ok: false,
+              errors: [{ path: 'upload', message: 'It\'s must be audio file' }],
+            };
+          }
+        }
 
         return ({
           ok: true
