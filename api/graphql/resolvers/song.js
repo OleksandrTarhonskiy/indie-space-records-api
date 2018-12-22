@@ -2,6 +2,14 @@ import formatErrors from './errors';
 import requiresAuth from '../../permissions';
 
 export default {
+  Query: {
+    allMySongs: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+      const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+      const songs = await models.Song.findAll({ where: { profile_id: currentProfile.id } });
+
+      return songs;
+    }),
+  },
   Mutation: {
     uploadSong: requiresAuth.createResolver(async (parent, { file, ...args }, { models, user }) => {
       try {

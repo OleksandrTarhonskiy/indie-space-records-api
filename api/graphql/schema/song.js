@@ -9,10 +9,14 @@ export default `
     url: String
     filetype: String
   }
-  
+
   input File {
     type: String!,
     path: String!,
+  }
+
+  type Query {
+    allMySongs: [Song]!
   }
 
   type uploadSong {
