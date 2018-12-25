@@ -53,7 +53,7 @@ export default {
       }
     }),
 
-    updateProduct: requiresAuth.createResolver(async (parent, { productId, type, title, price, inStock }, { models, user }
+    updateProduct: requiresAuth.createResolver(async (parent, { productId, type, title, price, inStock, file }, { models, user }
       ) => {
       if (price < 0) {
         return {
@@ -70,6 +70,18 @@ export default {
         product.title = title;
         product.price = price;
         product.inStock = inStock;
+
+        if (file) {
+          if (file.type.startsWith('image/')) {
+            product.filetype = file.type;
+            product.url      = file.path;
+          } else {
+            return {
+              ok: false,
+              errors: [{ path: 'upload', message: 'Wrong filetype' }],
+            };
+          }
+        }
 
         product.save();
 
