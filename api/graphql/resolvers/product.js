@@ -15,7 +15,7 @@ export default {
     }),
   },
   Mutation: {
-    createProduct: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+    createProduct: requiresAuth.createResolver(async (parent, { file, ...args }, { models, user }) => {
       if (args.price < 0) {
         return {
           ok: false,
@@ -26,7 +26,21 @@ export default {
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
 
-        await models.Product.create({ ...args, profileId: currentProfile.id, });
+        const productData = args;
+
+        if (file) {
+          if (file.type.startsWith('image/')) {
+            productData.filetype = file.type;
+            productData.url      = file.path;
+
+            await models.Product.create({ ...productData, profileId: currentProfile.id, });
+          } else {
+            return {
+              ok: false,
+              errors: [{ path: 'upload', message: 'Wrong filetype' }],
+            };
+          }
+        }
 
         return ({
           ok: true

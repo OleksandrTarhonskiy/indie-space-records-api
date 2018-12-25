@@ -5,6 +5,8 @@ export default (sequelize, DataTypes) => {
     desc         : DataTypes.TEXT,
     price        : DataTypes.DECIMAL,
     deliveryType : DataTypes.STRING,
+    url          : DataTypes.STRING,
+    filetype     : DataTypes.STRING,
     inStock      : {
       type         : DataTypes.BOOLEAN,
       defaultValue : true,
