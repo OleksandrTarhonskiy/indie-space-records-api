@@ -13,6 +13,8 @@ export default {
 
       return products;
     }),
+
+    viewProduct: async (parent, { productId }, { models }) => await models.Product.findOne({ where: { id: productId } })
   },
   Mutation: {
     createProduct: requiresAuth.createResolver(async (parent, { file, ...args }, { models, user }) => {

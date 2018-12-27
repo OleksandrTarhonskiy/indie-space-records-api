@@ -14,6 +14,7 @@ export default `
 
   type Query {
     allMyProducts(searchQuery: String): [Product!]!
+    viewProduct(productId: Int!): Product!
   }
 
   type createProduct {
