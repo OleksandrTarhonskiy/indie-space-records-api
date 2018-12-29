@@ -7,10 +7,11 @@ export default (sequelize, DataTypes) => {
     deliveryType : DataTypes.STRING,
     url          : DataTypes.STRING,
     filetype     : DataTypes.STRING,
-    inStock      : {
-      type         : DataTypes.BOOLEAN,
-      defaultValue : true,
+    quantity     : {
+      type         : DataTypes.INTEGER,
+      defaultValue : 1,
     },
+    inStock      : DataTypes.BOOLEAN,
   },
   { underscored: true }
 );

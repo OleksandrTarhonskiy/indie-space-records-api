@@ -35,6 +35,15 @@ export default {
             productData.filetype = file.type;
             productData.url      = file.path;
 
+            if (productData.quantity === 0) {
+              productData.inStock = false
+            } else if (productData.quantity < 0) {
+              return {
+                ok: false,
+                errors: [{ path: 'quantity', message: 'Quantity must be greater than 0' }],
+              };
+            }
+
             await models.Product.create({ ...productData, profileId: currentProfile.id, });
           } else {
             return {
@@ -55,7 +64,7 @@ export default {
       }
     }),
 
-    updateProduct: requiresAuth.createResolver(async (parent, { productId, type, title, price, inStock, file }, { models, user }
+    updateProduct: requiresAuth.createResolver(async (parent, { productId, type, title, price, inStock, quantity, file }, { models, user }
       ) => {
       if (price < 0) {
         return {
@@ -71,7 +80,6 @@ export default {
         product.type = type;
         product.title = title;
         product.price = price;
-        product.inStock = inStock;
 
         if (file) {
           if (file.type.startsWith('image/')) {
@@ -83,6 +91,20 @@ export default {
               errors: [{ path: 'upload', message: 'Wrong filetype' }],
             };
           }
+        }
+
+        if (inStock && !quantity) {
+          return {
+            ok: false,
+            errors: [{ path: 'inStock', message: 'Quantity of this product is 0' }],
+          };
+        } else {
+          product.inStock = inStock;
+        }
+
+        if (quantity) {
+          product.quantity = quantity;
+          product.inStock  = true;
         }
 
         product.save();
