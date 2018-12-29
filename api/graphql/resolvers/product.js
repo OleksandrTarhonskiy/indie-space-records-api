@@ -25,6 +25,12 @@ export default {
         };
       }
 
+      if (args.quantity < 0) {
+        return {
+          ok: false,
+          errors: [{ path: 'quantity', message: 'Quantity must be greater than 0' }],
+        };
+      }
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
 
@@ -34,6 +40,13 @@ export default {
           if (file.type.startsWith('image/')) {
             productData.filetype = file.type;
             productData.url      = file.path;
+
+            if (productData.quantity < 0) {
+              return {
+                ok: false,
+                errors: [{ path: 'quantity', message: 'Quantity must be greater than 0' }],
+              };
+            }
 
             await models.Product.create({ ...productData, profileId: currentProfile.id, });
           } else {
@@ -55,7 +68,7 @@ export default {
       }
     }),
 
-    updateProduct: requiresAuth.createResolver(async (parent, { productId, type, title, price, inStock, file }, { models, user }
+    updateProduct: requiresAuth.createResolver(async (parent, { productId, type, title, price, quantity, file }, { models, user }
       ) => {
       if (price < 0) {
         return {
@@ -64,6 +77,12 @@ export default {
         };
       }
 
+      if (quantity < 0) {
+        return {
+          ok: false,
+          errors: [{ path: 'quantity', message: 'Quantity must be greater than 0' }],
+        };
+      }
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
         const product = await models.Product.findOne({ where: { id: productId } });
@@ -71,7 +90,7 @@ export default {
         product.type = type;
         product.title = title;
         product.price = price;
-        product.inStock = inStock;
+        product.quantity = quantity;
 
         if (file) {
           if (file.type.startsWith('image/')) {
