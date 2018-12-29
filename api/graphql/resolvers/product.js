@@ -80,6 +80,7 @@ export default {
         product.type = type;
         product.title = title;
         product.price = price;
+        product.quantity = quantity;
 
         if (file) {
           if (file.type.startsWith('image/')) {
@@ -93,18 +94,10 @@ export default {
           }
         }
 
-        if (inStock && !quantity) {
-          return {
-            ok: false,
-            errors: [{ path: 'inStock', message: 'Quantity of this product is 0' }],
-          };
-        } else {
-          product.inStock = inStock;
-        }
-
         if (quantity) {
-          product.quantity = quantity;
           product.inStock  = true;
+        } else {
+          product.inStock  = false;
         }
 
         product.save();
