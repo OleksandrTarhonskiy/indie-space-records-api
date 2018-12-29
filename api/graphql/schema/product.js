@@ -7,7 +7,6 @@ export default `
     desc: String!
     price: Float!
     deliveryType: String!
-    inStock: Boolean!
     quantity: Int!
     url: String
     filetype: String
