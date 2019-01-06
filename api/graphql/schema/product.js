@@ -15,6 +15,7 @@ export default `
   type Query {
     allMyProducts(offset: Int!, searchQuery: String): [Product!]!
     viewProduct(productId: Int!): Product!
+    fetchProducts(profileId: Int!): [Product!]!
   }
 
   type createProduct {

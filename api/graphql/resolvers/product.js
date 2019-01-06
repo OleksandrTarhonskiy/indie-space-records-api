@@ -15,6 +15,8 @@ export default {
       return products;
     }),
 
+    fetchProducts: async (parent, { profileId }, { models }) => await models.Product.findAll({ where: { profile_id: profileId } }),
+
     viewProduct: async (parent, { productId }, { models }) => await models.Product.findOne({ where: { id: productId } })
   },
   Mutation: {
