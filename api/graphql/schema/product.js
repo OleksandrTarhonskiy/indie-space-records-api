@@ -13,8 +13,9 @@ export default `
   }
 
   type Query {
-    allMyProducts(searchQuery: String): [Product!]!
+    allMyProducts(offset: Int!, searchQuery: String): [Product!]!
     viewProduct(productId: Int!): Product!
+    fetchProducts(profileId: Int!): [Product!]!
   }
 
   type createProduct {
