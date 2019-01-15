@@ -3,7 +3,7 @@ import requiresAuth from '../../permissions';
 
 export default {
   Query: {
-    allMyProducts: requiresAuth.createResolver(async (parent, { offset, searchQuery }, { models, user }) => {
+    MyProducts: requiresAuth.createResolver(async (parent, { offset, searchQuery }, { models, user }) => {
       const profile = await models.Profile.findOne({ where: { owner: user.id } });
       let products = await models.Product.findAll({ where: { profileId: profile.id }, limit: 5, offset });
 
@@ -15,7 +15,7 @@ export default {
       return products;
     }),
 
-    fetchProducts: async (parent, { profileId }, { models }) => await models.Product.findAll({ where: { profile_id: profileId } }),
+    Products: async (parent, { profileId }, { models }) => await models.Product.findAll({ where: { profile_id: profileId } }),
 
     viewProduct: async (parent, { productId }, { models }) => await models.Product.findOne({ where: { id: productId } })
   },
