@@ -15,7 +15,13 @@ export default {
       return products;
     }),
 
-    Products: async (parent, { profileId }, { models }) => await models.Product.findAll({ where: { profile_id: profileId } }),
+    Products: async (parent, { offset, profileId }, { models }) => await models.Product.findAll({
+      where : {
+        profile_id : profileId,
+      },
+      limit : 6,
+      offset,
+    }),
 
     viewProduct: async (parent, { productId }, { models }) => await models.Product.findOne({ where: { id: productId } })
   },
