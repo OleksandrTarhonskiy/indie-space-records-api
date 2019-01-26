@@ -5,7 +5,12 @@ export default {
   Query: {
     MyProducts: requiresAuth.createResolver(async (parent, { offset, searchQuery }, { models, user }) => {
       const profile = await models.Profile.findOne({ where: { owner: user.id } });
-      let products = await models.Product.findAll({ where: { profileId: profile.id }, limit: 5, offset });
+      let products = await models.Product.findAll({
+        order : [['created_at', 'DESC']],
+        where : { profileId: profile.id },
+        limit : 5,
+        offset,
+      });
 
       if (searchQuery) {
         const allProducts = models.Product.findAll({ where: { profileId: profile.id } });
@@ -16,6 +21,7 @@ export default {
     }),
 
     Products: async (parent, { offset, profileId }, { models }) => await models.Product.findAll({
+      order : [['created_at', 'DESC']],
       where : {
         profile_id : profileId,
       },
