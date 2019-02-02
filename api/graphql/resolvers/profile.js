@@ -4,7 +4,11 @@ import requiresAuth from '../../permissions';
 export default {
   Profile: {
     theme: async (parent, args, { models }) => await models.Theme.findOne({ where: { owner: parent.id } }),
-    events: async (parent, args, { models }) => await models.Event.findAll({ where: { profileId: parent.id } }),
+    events: async (parent, args, { models }) => await models.Event.findAll({
+      where: { profileId: parent.id },
+      order: [['created_at', 'DESC']],
+      limit: 6,
+    }),
     products: async (parent, args, { models }) => await models.Product.findAll({
       where: { profileId: parent.id },
       order: [['created_at', 'DESC']],
