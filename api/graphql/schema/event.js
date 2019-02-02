@@ -29,6 +29,7 @@ export default `
   type Query {
     allMyEvents: [Event!]!
     viewEvent(eventId: Int!): Event!
+    events(offset: Int!, profileId: Int!): [Event]!
   }
 
   type Mutation {
