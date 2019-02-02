@@ -15,7 +15,16 @@ export default {
 
         return event
       },
-    },
+
+    events: async (parent, { offset, profileId }, { models }) => await models.Event.findAll({
+      order : [['created_at', 'DESC']],
+      where : {
+        profile_id : profileId,
+      },
+      limit : 10,
+      offset,
+    }),
+  },
   Mutation: {
     createEvent: requiresAuth.createResolver(async (parent, args, { models, user }) => {
       if (args.price < 0) {
@@ -24,7 +33,7 @@ export default {
           errors: [{ path: 'price', message: 'Price must be greater than 0' }],
         };
       }
-      
+
       try {
         const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
         await models.Event.create({ ...args, profileId: currentProfile.id });
