@@ -21,7 +21,7 @@ export default {
       where : {
         profile_id : profileId,
       },
-      limit : 10,
+      limit : 12,
       offset,
     }),
   },
