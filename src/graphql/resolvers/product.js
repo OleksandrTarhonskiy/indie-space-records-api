@@ -1,5 +1,6 @@
 import formatErrors from './errors';
 import requiresAuth from '../../permissions';
+import fs           from 'fs';
 
 export default {
   Query: {
@@ -120,6 +121,29 @@ export default {
         }
 
         product.save();
+
+        return ({
+          ok: true
+        });
+      } catch (err) {
+        return {
+          ok: false,
+          errors: formatErrors(err, models),
+        };
+      }
+    }),
+
+    deleteProduct: requiresAuth.createResolver(async (parent, { productId }, { models, user }) => {
+      try {
+        const currentProfile = await models.Profile.findOne({ where: { owner: user.id } });
+        const product = await models.Product.findOne({ where: { id: productId, profileId: currentProfile.id } });
+
+        fs.unlink(product.url, (err) => {
+          if (err) console.error(err);
+          console.log(`${product.url} was deleted`);
+        });
+
+        product.destroy();
 
         return ({
           ok: true
