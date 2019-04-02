@@ -17,6 +17,7 @@ const models = {
   Product : sequelize.import('./product'),
   Section : sequelize.import('./section'),
   Widget  : sequelize.import('./widget'),
+  Order   : sequelize.import('./order'),
 };
 
 Object.keys(models).forEach((modelName) => {
