@@ -11,7 +11,11 @@ export default (sequelize, DataTypes) => {
 );
 
   Order.associate = (models) => {
-    Order.hasMany(models.Order, {
+    Order.belongsTo(models.Profile, {
+      foreignKey: 'owner',
+    });
+
+    Order.belongsTo(models.Product, {
       foreignKey: {
         name: 'orderId',
         field: 'order_id',

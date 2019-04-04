@@ -2,6 +2,7 @@ export default `
   type Order {
     id: Int!
     product: Product!
+    profile: Profile!
     quantity: Int!
     firstName: String!
     lastName: String!
