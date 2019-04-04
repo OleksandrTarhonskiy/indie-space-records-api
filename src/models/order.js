@@ -17,8 +17,8 @@ export default (sequelize, DataTypes) => {
 
     Order.belongsTo(models.Product, {
       foreignKey: {
-        name: 'orderId',
-        field: 'order_id',
+        name: 'productId',
+        field: 'product_id',
       },
     });
   };
