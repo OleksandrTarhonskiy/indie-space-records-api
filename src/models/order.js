@@ -14,6 +14,13 @@ export default (sequelize, DataTypes) => {
     Order.belongsTo(models.Profile, {
       foreignKey: 'owner',
     });
+
+    Order.belongsTo(models.Product, {
+      foreignKey: {
+        name: 'orderId',
+        field: 'order_id',
+      },
+    });
   };
 
   return Order;
