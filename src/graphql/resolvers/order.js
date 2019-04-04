@@ -1,12 +1,13 @@
 import formatErrors from './errors';
-import requiresAuth from '../../permissions';
 import fs           from 'fs';
 
 export default {
   Mutation: {
-    createOrder: requiresAuth.createResolver(async (parent, args, { models, user }) => {
+    createOrder: async (parent, args, { models, user }) => {
       try {
         console.log(args);
+
+        console.log(JSON.parse(args.products))
 
         return ({
           ok: true
@@ -17,6 +18,6 @@ export default {
           errors: formatErrors(err, models),
         };
       }
-    }),
+    },
   },
 };
