@@ -3,7 +3,18 @@ import fs           from 'fs';
 
 export default {
   Mutation: {
-    createOrder: async (parent, { firstName, lastName, quantity, phoneNumber, email, deliveryType, products }, { models, user }) => {
+    createOrder: async (parent, {
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      city,
+      deliveryAddress,
+      deliveryType,
+      country,
+      zipCode,
+      products
+    }, { models, user }) => {
       try {
         const parsedProducts = JSON.parse(products);
 
@@ -14,7 +25,11 @@ export default {
             lastName,
             phoneNumber,
             email,
+            city,
+            deliveryAddress,
             deliveryType,
+            country,
+            zipCode,
           }
 
           return (models.Order.create({ ...params, owner : p.storeId, productId : p.id }));
