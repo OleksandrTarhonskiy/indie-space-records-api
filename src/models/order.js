@@ -1,11 +1,15 @@
 export default (sequelize, DataTypes) => {
   const Order = sequelize.define('order', {
-    quantity     : DataTypes.INTEGER,
-    firstName    : DataTypes.STRING,
-    lastName     : DataTypes.STRING,
-    phoneNumber  : DataTypes.STRING,
-    email        : DataTypes.STRING,
-    deliveryType : DataTypes.STRING,
+    quantity        : DataTypes.INTEGER,
+    firstName       : DataTypes.STRING,
+    lastName        : DataTypes.STRING,
+    phoneNumber     : DataTypes.STRING,
+    email           : DataTypes.STRING,
+    city            : DataTypes.STRING,
+    deliveryType    : DataTypes.STRING,
+    deliveryAddress : DataTypes.STRING,
+    country         : DataTypes.STRING,
+    zipCode         : DataTypes.STRING,
   },
   { underscored: true }
 );

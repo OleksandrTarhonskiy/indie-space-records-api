@@ -8,7 +8,11 @@ export default `
     lastName: String!
     phoneNumber: String!
     email: String!
+    city: String!
     deliveryType: String!
+    deliveryAddress: String!
+    country: String!
+    zipCode: String!
   }
 
   type createOrder {
@@ -17,6 +21,15 @@ export default `
   }
 
   type Mutation {
-    createOrder(products: String!, firstName: String!, lastName: String!, phoneNumber: String!, email: String!, deliveryType: String!): createOrder!
+    createOrder(products: String!
+    firstName: String!
+    lastName: String!
+    phoneNumber: String!
+    email: String!
+    city: String!
+    deliveryType: String!
+    deliveryAddress: String!
+    country: String!
+    zipCode: String!): createOrder!
   }
 `;
